@@ -33,8 +33,8 @@ def init_distributed(timeout_minutes: int = None) -> None:
     )
     local_rank = get_local_rank()
     print("^^^^^^^^^^^^^^^",local_rank)
-    exit()
-    torch.cuda.set_device(get_local_rank())
+    # exit()
+    torch.cuda.set_device(local_rank)
 
 
 def setup_tf32(use_tf32: bool = True) -> None:
