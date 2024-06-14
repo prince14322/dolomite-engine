@@ -258,7 +258,8 @@ class LRSchedulerArgs(BaseArgs):
 
 class MixedPrecisionArgs(BaseArgs):
     # dtype to use for training / inference
-    dtype: str = "fp32"
+    # dtype: str = "fp32"
+    dtype: str = "bf16"
     # fp8 backend
     fp8_backend: Optional[FP8Backend] = None
 
