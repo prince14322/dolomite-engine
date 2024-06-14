@@ -31,6 +31,9 @@ def init_distributed(timeout_minutes: int = None) -> None:
     torch.distributed.init_process_group(
         "nccl", rank=get_global_rank(), world_size=get_world_size(), timeout=timeout_minutes
     )
+    local_rank = get_local_rank()
+    print("^^^^^^^^^^^^^^^",local_rank)
+    exit()
     torch.cuda.set_device(get_local_rank())
 
 
