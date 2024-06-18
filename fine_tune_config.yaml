@@ -1,7 +1,7 @@
 datasets:
   - class_name: HuggingFaceDataset
     class_args:
-      data_path: /cos_mount/data/synthetic_data/CodeXGLUE/
+      data_path: /cos_mount/data/instruction_tuning/CodeXGLUE/synthetic_data/
     data_name: CodeXGLUE_java_synthetic
     input_format: "Question:\n__input__\n\nAnswer:\n"
     output_format: "__output__"
