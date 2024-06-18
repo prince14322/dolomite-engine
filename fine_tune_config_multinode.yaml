@@ -1,0 +1,59 @@
+datasets:
+  - class_name: HuggingFaceDataset
+    class_args:
+      data_path: /cos_mount/data/instruction_tuning/CodeXGLUE/synthetic_data/
+    data_name: CodeXGLUE_java_synthetic
+    input_format: "Question:\n__input__\n\nAnswer:\n"
+    output_format: "__output__"
+    data_sampling_ratio: 1
+    max_input_tokens: 4096
+    max_output_tokens: 4096
+
+model_args:
+  model_name: /cos_mount/models/base_models/ibm_huggingface/granite-20b-code-base/
+  # model_name: /dccstor/ai4code-summ/models/base_models/g1bc/step_150000_ckpt
+  model_class: AutoModelForCausalLM
+  # model_class: GPTMegatronForCausalLM
+  attention_implementation: flash_attention_2
+  # use_padding_free_transformer: true
+  efficient_initialization: true
+
+tuning_args:
+  tuning_method: full_finetuning
+
+save_args:
+  save_path: /cos_mount/models/trained_models/ibm_huggingface/granite-20b-code-base-multinode/
+  save_interval: 100
+
+training_parameters:
+  num_training_steps: 500
+  eval_interval: 100
+  micro_batch_size: 4
+  gradient_accumulation_steps: 4
+
+optimizer_args:
+  class_name: TorchAdamW
+  class_args:
+    lr: 1e-5
+    weight_decay: 0.1
+    betas:
+      - 0.9
+      - 0.95
+    eps: 1e-10
+
+lr_scheduler_args:
+  lr_decay_style: cosine
+  num_warmup_steps: 500
+
+mixed_precision_args:
+  dtype: bf16
+
+distributed_args:
+  distributed_backend: deepspeed
+  gradient_checkpointing_method: block
+
+# logging_args:
+#   experiments_tracker_name: aim
+#   aim_args:
+#     repo: /dccstor/ai4code-summ/prince/aim
+#     experiment: g20bc_v1_codeXGLUE_synthetic_data
