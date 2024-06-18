@@ -22,7 +22,7 @@ tuning_args:
   tuning_method: full_finetuning
 
 save_args:
-  save_path: /cos_mount/models/trained_models/ibm_huggingface/granite-20b-code-base/
+  save_path: /cos_mount/models/trained_models/ibm_huggingface/granite-20b-code-base-public/
   save_interval: 100
 
 training_parameters:
